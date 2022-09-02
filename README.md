@@ -1,6 +1,6 @@
 # Encryption Decryption
 
->   Symmetric Encryption
+>  Symmetric Encryption
 >- AES Algorithm
 >- FERNET Algorithm
 >- SALSA20 Algorithm
