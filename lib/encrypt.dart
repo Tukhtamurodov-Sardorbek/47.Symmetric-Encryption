@@ -7,7 +7,7 @@ class SymmetricEncryption {
   static final ivAES = encrypt.IV.fromLength(16);
   static final encrypterAES = encrypt.Encrypter(encrypt.AES(keyAES));
 
-  static EncryptAES(String text) {
+  static String EncryptAES(String text) {
     final encrypted = encrypterAES.encrypt(text, iv: ivAES);
 
     print('***************** AES *****************');
@@ -16,11 +16,14 @@ class SymmetricEncryption {
     print('** BASE64: ${encrypted.base64}');
     print('***************************************');
 
-    return encrypted;
+    return encrypted.base64;
   }
 
-  static DecryptAES(encrypt.Encrypted encrypted) {
-    final decrypted = encrypterAES.decrypt(encrypted, iv: ivAES);
+  static DecryptAES(String encrypted) {
+    // * If encrypted is encrypt.Encrypted
+    // final decrypted = encrypterAES.decrypt(encrypted, iv: ivAES);
+    // * If encrypted is String
+    final decrypted = encrypterAES.decrypt64(encrypted, iv: ivAES);
     return decrypted;
   }
 
@@ -28,7 +31,7 @@ class SymmetricEncryption {
   static final keyFernet = encrypt.Key.fromUtf8('anyKeyButItMustBe32ByteCharacter');
   static final encrypterFernet = encrypt.Encrypter(encrypt.Fernet(keyFernet));
 
-  static EncryptFernet(String text) {
+  static String EncryptFernet(String text) {
     final encrypted = encrypterFernet.encrypt(text);
 
     print('***************** Fernet *****************');
@@ -37,11 +40,15 @@ class SymmetricEncryption {
     print('** BASE64: ${encrypted.base64}');
     print('** ${encrypt.Fernet(keyFernet).extractTimestamp(encrypted.bytes)}');
     print('******************************************');
-    return encrypted;
+
+    return encrypted.base64;
   }
 
-  static DecryptFernet(encrypt.Encrypted encrypted) {
-    final decrypted = encrypterFernet.decrypt(encrypted);
+  static DecryptFernet(String encrypted) {
+    // * If encrypted is encrypt.Encrypted
+    // final decrypted = encrypterFernet.decrypt(encrypted);
+    // * If encrypted is String
+    final decrypted = encrypterFernet.decrypt64(encrypted);
     return decrypted;
   }
 
@@ -50,7 +57,7 @@ class SymmetricEncryption {
   static final ivSalsa20 = encrypt.IV.fromLength(8);
   static final encrypterSalsa20 = encrypt.Encrypter(encrypt.Salsa20(keySalsa20));
 
-  static EncryptSalsa20(String text) {
+  static String EncryptSalsa20(String text) {
     final encrypted = encrypterSalsa20.encrypt(text, iv: ivSalsa20);
 
     debugPrint('***************** Salsa20 *****************');
@@ -59,11 +66,14 @@ class SymmetricEncryption {
     debugPrint('** BASE64: ${encrypted.base64}');
     debugPrint('*******************************************');
 
-    return encrypted;
+    return encrypted.base64;
   }
 
-  static DecryptSalsa20(encrypt.Encrypted encrypted) {
-    final decrypted = encrypterSalsa20.decrypt(encrypted, iv: ivSalsa20);
+  static DecryptSalsa20(String encrypted) {
+    // * If encrypted is encrypt.Encrypted
+    // final decrypted = encrypterSalsa20.decrypt(encrypted, iv: ivSalsa20);
+    // * If encrypted is String
+    final decrypted = encrypterSalsa20.decrypt64(encrypted, iv: ivSalsa20);
     return decrypted;
   }
 }

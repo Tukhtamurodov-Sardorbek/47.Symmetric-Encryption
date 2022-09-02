@@ -13,8 +13,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController txtController = TextEditingController();
   String? plainText;
   String? currentAlgorithm = 'AES';
-  var encryptedText;
-  bool isEncrypt = true;
+  String? encryptedText;
+  bool? isEncrypt;
 
   @override
   Widget build(BuildContext context) {
@@ -112,27 +112,27 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    isEncrypt = false;
-                    if (encryptedText is encrypt.Encrypted) {
+                    if (isEncrypt != null && isEncrypt!) {
+                      isEncrypt = false;
                       if(currentAlgorithm == 'AES'){
-                        encryptedText = SymmetricEncryption.DecryptAES(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptAES(encryptedText!);
                       } else if(currentAlgorithm == 'Fernet'){
-                        encryptedText = SymmetricEncryption.DecryptFernet(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptFernet(encryptedText!);
                       } else if(currentAlgorithm == 'Salsa20'){
-                        encryptedText = SymmetricEncryption.DecryptSalsa20(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptSalsa20(encryptedText!);
                       }
                       setState(() {});
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: encryptedText is encrypt.Encrypted
+                    primary: isEncrypt != null && isEncrypt!
                         ? Colors.amber
                         : Colors.amberAccent.shade100,
                   ),
                   child: Text(
                     'Decrypt',
                     style: TextStyle(
-                      color: encryptedText is encrypt.Encrypted
+                      color: isEncrypt != null && isEncrypt!
                           ? Colors.black
                           : Colors.black45,
                     ),
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 24.0),
                     Text(
-                      isEncrypt ? 'ENCRYPTED TEXT' : 'DECRYPTED TEXT',
+                      isEncrypt == null ? 'RESULT TEXT' : isEncrypt != null && isEncrypt! ? 'ENCRYPTED TEXT' : 'DECRYPTED TEXT',
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.amber[400],
@@ -183,13 +183,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      child: Text(
-                          encryptedText == null
-                          ? ''
-                          : encryptedText is encrypt.Encrypted
-                              ? encryptedText.base64
-                              : encryptedText,
-                      ),
+                      child: Text(encryptedText ?? ''),
                     ),
                   ],
                 ),
