@@ -23,10 +23,8 @@ class HomePage extends ConsumerWidget {
               value: watch.currentAlgorithm,
               items: const [
                 DropdownMenuItem(value: 'AES', child: Text('AES Algorithm')),
-                DropdownMenuItem(
-                    value: 'Fernet', child: Text('Fernet Algorithm')),
-                DropdownMenuItem(
-                    value: 'Salsa20', child: Text('Salsa20 Algorithm')),
+                DropdownMenuItem(value: 'Fernet', child: Text('Fernet Algorithm')),
+                DropdownMenuItem(value: 'Salsa20', child: Text('Salsa20 Algorithm')),
               ],
               decoration: const InputDecoration(
                 border: InputBorder.none,
