@@ -87,11 +87,11 @@ class _HomePageState extends State<HomePage> {
                     if(plainText != null && plainText!.isNotEmpty){
                       isEncrypt = true;
                       if(currentAlgorithm == 'AES'){
-                        encryptedText = EncryptDecrypt.EncryptAES(plainText!);
+                        encryptedText = SymmetricEncryption.EncryptAES(plainText!);
                       } else if(currentAlgorithm == 'Fernet'){
-                        encryptedText = EncryptDecrypt.EncryptFernet(plainText!);
+                        encryptedText = SymmetricEncryption.EncryptFernet(plainText!);
                       } else if(currentAlgorithm == 'Salsa20'){
-                        encryptedText = EncryptDecrypt.EncryptSalsa20(plainText!);
+                        encryptedText = SymmetricEncryption.EncryptSalsa20(plainText!);
                       }
                       setState(() {});
                     }
@@ -115,11 +115,11 @@ class _HomePageState extends State<HomePage> {
                     isEncrypt = false;
                     if (encryptedText is encrypt.Encrypted) {
                       if(currentAlgorithm == 'AES'){
-                        encryptedText = EncryptDecrypt.DecryptAES(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptAES(encryptedText);
                       } else if(currentAlgorithm == 'Fernet'){
-                        encryptedText = EncryptDecrypt.DecryptFernet(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptFernet(encryptedText);
                       } else if(currentAlgorithm == 'Salsa20'){
-                        encryptedText = EncryptDecrypt.DecryptSalsa20(encryptedText);
+                        encryptedText = SymmetricEncryption.DecryptSalsa20(encryptedText);
                       }
                       setState(() {});
                     }

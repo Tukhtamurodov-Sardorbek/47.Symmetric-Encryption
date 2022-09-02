@@ -1,7 +1,7 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 
-class EncryptDecrypt {
+class SymmetricEncryption {
   /// AES Algorithm
   static final keyAES = encrypt.Key.fromLength(32);
   static final ivAES = encrypt.IV.fromLength(16);
