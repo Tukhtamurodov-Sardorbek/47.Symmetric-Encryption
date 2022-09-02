@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:encryption_decryption/encrypt.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final homeChangeNotifier = ChangeNotifierProvider<HomeChangeNotifier>(
-      (ref) => HomeChangeNotifier(),
-);
+final homeChangeNotifier = ChangeNotifierProvider<HomeChangeNotifier>((ref) => HomeChangeNotifier(),);
 
 class HomeChangeNotifier extends ChangeNotifier {
   /// fields
