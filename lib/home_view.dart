@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:encryption_decryption/encrypt.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:encryption_decryption/home_viewModel.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final watch = ref.watch(homeChangeNotifier);
+    final read = ref.read(homeChangeNotifier);
 
-class _HomePageState extends State<HomePage> {
-  TextEditingController txtController = TextEditingController();
-  String? plainText;
-  String? currentAlgorithm = 'AES';
-  String? encryptedText;
-  bool? isEncrypt;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -28,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             DropdownButtonFormField(
-              value: currentAlgorithm,
+              value: watch.currentAlgorithm,
               items: const [
                 DropdownMenuItem(value: 'AES', child: Text('AES Algorithm')),
                 DropdownMenuItem(
@@ -48,14 +40,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onChanged: (String? value) {
-                setState(() {
-                  currentAlgorithm = value;
-                });
+                read.currentAlgorithm = value;
               },
             ),
             const SizedBox(height: 24.0),
             TextField(
-              controller: txtController,
+              controller: watch.textController,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 enabledBorder: OutlineInputBorder(
@@ -67,15 +57,11 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.all(Radius.circular(12.0)),
                 ),
               ),
-              onChanged: (text){
-                setState(() {
-                  plainText = txtController.text.trim();
-                });
+              onChanged: (text) {
+                read.getInput();
               },
-              onSubmitted: (text){
-                setState(() {
-                  plainText = txtController.text.trim();
-                });
+              onSubmitted: (text) {
+                read.getInput();
               },
             ),
             const SizedBox(height: 24.0),
@@ -84,27 +70,17 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if(plainText != null && plainText!.isNotEmpty){
-                      isEncrypt = true;
-                      if(currentAlgorithm == 'AES'){
-                        encryptedText = SymmetricEncryption.EncryptAES(plainText!);
-                      } else if(currentAlgorithm == 'Fernet'){
-                        encryptedText = SymmetricEncryption.EncryptFernet(plainText!);
-                      } else if(currentAlgorithm == 'Salsa20'){
-                        encryptedText = SymmetricEncryption.EncryptSalsa20(plainText!);
-                      }
-                      setState(() {});
-                    }
+                    read.onEncryption();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: plainText != null && plainText!.isNotEmpty
+                    primary: watch.isEncryptionAvailable
                         ? Colors.amber
                         : Colors.amberAccent.shade100,
                   ),
                   child: Text(
                     'Encrypt',
                     style: TextStyle(
-                      color: plainText != null && plainText!.isNotEmpty
+                      color: watch.isEncryptionAvailable
                           ? Colors.black
                           : Colors.black45,
                     ),
@@ -112,27 +88,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (isEncrypt != null && isEncrypt!) {
-                      isEncrypt = false;
-                      if(currentAlgorithm == 'AES'){
-                        encryptedText = SymmetricEncryption.DecryptAES(encryptedText!);
-                      } else if(currentAlgorithm == 'Fernet'){
-                        encryptedText = SymmetricEncryption.DecryptFernet(encryptedText!);
-                      } else if(currentAlgorithm == 'Salsa20'){
-                        encryptedText = SymmetricEncryption.DecryptSalsa20(encryptedText!);
-                      }
-                      setState(() {});
-                    }
+                    read.onDecryption();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: isEncrypt != null && isEncrypt!
+                    primary: watch.isEncryptionAvailable
                         ? Colors.amber
                         : Colors.amberAccent.shade100,
                   ),
                   child: Text(
                     'Decrypt',
                     style: TextStyle(
-                      color: isEncrypt != null && isEncrypt!
+                      color: watch.isEncryptionAvailable
                           ? Colors.black
                           : Colors.black45,
                     ),
@@ -161,13 +127,13 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.amberAccent, width: 3),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(12.0)),
+                        const BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      child: Text(plainText ?? ''),
+                      child: Text(watch.plainText ?? ''),
                     ),
                     const SizedBox(height: 24.0),
                     Text(
-                      isEncrypt == null ? 'RESULT TEXT' : isEncrypt != null && isEncrypt! ? 'ENCRYPTED TEXT' : 'DECRYPTED TEXT',
+                      read.getLabel(),
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.amber[400],
@@ -181,9 +147,9 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.amberAccent, width: 3),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(12.0)),
+                        const BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      child: Text(encryptedText ?? ''),
+                      child: Text(watch.encryptedText ?? ''),
                     ),
                   ],
                 ),
@@ -195,3 +161,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
