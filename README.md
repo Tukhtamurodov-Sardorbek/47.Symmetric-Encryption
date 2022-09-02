@@ -7,12 +7,17 @@
 
 | Empty View | Input View |
 |----------------|:----------------:|
-| ![View](assets/readme/img.png) | ![View](assets/readme/img_1.png) |
+| <img src = "assets/readme/img.png" width="300" height="640" /> | <img src = "assets/readme/img_1.png" width="300" height="640" /> |
+
+| AES Encryption | AES Decryption |
+|----------------|:----------------:|
+| <img src = "assets/readme/img_2.png" width="300" height="640" /> | <img src = "assets/readme/img_3.png" width="300" height="640" /> |
 
 | Fernet Encryption | Fernet Decryption |
 |----------------|:----------------:|
-| ![View](assets/readme/img_4.png) | ![View](assets/readme/img_5.png) |
+| <img src = "assets/readme/img_4.png" width="300" height="640" /> | <img src = "assets/readme/img_5.png" width="300" height="640" /> |
 
 | Salsa20 Encryption | Salsa20 Decryption |
 |----------------|:----------------:|
-| ![View](assets/readme/img_6.png) | ![View](assets/readme/img_7.png) |
+| <img src = "assets/readme/img_6.png" width="300" height="640" /> | <img src = "assets/readme/img_7.png" width="300" height="640" /> |
+
