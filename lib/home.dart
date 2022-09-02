@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   String? plainText;
   String? currentAlgorithm = 'AES';
   var encryptedText;
+  bool isEncrypt = true;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +67,16 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.all(Radius.circular(12.0)),
                 ),
               ),
+              onChanged: (text){
+                setState(() {
+                  plainText = txtController.text.trim();
+                });
+              },
+              onSubmitted: (text){
+                setState(() {
+                  plainText = txtController.text.trim();
+                });
+              },
             ),
             const SizedBox(height: 24.0),
             Row(
@@ -73,23 +84,42 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    plainText = txtController.text.trim();
-                    if(currentAlgorithm == 'AES'){
-                      encryptedText = EncryptDecrypt.EncryptAES(plainText!);
-                    } else if(currentAlgorithm == 'Fernet'){
-                      encryptedText = EncryptDecrypt.EncryptFernet(plainText!);
+                    if(plainText != null && plainText!.isNotEmpty){
+                      isEncrypt = true;
+                      if(currentAlgorithm == 'AES'){
+                        encryptedText = EncryptDecrypt.EncryptAES(plainText!);
+                      } else if(currentAlgorithm == 'Fernet'){
+                        encryptedText = EncryptDecrypt.EncryptFernet(plainText!);
+                      } else if(currentAlgorithm == 'Salsa20'){
+                        encryptedText = EncryptDecrypt.EncryptSalsa20(plainText!);
+                      }
+                      setState(() {});
                     }
-                    setState(() {});
                   },
-                  child: const Text('Encrypt'),
+                  style: ElevatedButton.styleFrom(
+                    primary: plainText != null && plainText!.isNotEmpty
+                        ? Colors.amber
+                        : Colors.amberAccent.shade100,
+                  ),
+                  child: Text(
+                    'Encrypt',
+                    style: TextStyle(
+                      color: plainText != null && plainText!.isNotEmpty
+                          ? Colors.black
+                          : Colors.black45,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    isEncrypt = false;
                     if (encryptedText is encrypt.Encrypted) {
                       if(currentAlgorithm == 'AES'){
                         encryptedText = EncryptDecrypt.DecryptAES(encryptedText);
                       } else if(currentAlgorithm == 'Fernet'){
                         encryptedText = EncryptDecrypt.DecryptFernet(encryptedText);
+                      } else if(currentAlgorithm == 'Salsa20'){
+                        encryptedText = EncryptDecrypt.DecryptSalsa20(encryptedText);
                       }
                       setState(() {});
                     }
@@ -137,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 24.0),
                     Text(
-                      'ENCRYPTED TEXT',
+                      isEncrypt ? 'ENCRYPTED TEXT' : 'DECRYPTED TEXT',
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.amber[400],
