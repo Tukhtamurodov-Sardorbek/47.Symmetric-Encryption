@@ -1,9 +1,9 @@
 # Encryption Decryption
 
 > Symmetric Encryption
-- AES Algorithm
-- FERNET Algorithm
-- SALSA20 Algorithm
+> - AES Algorithm
+- > FERNET Algorithm
+- > SALSA20 Algorithm
 
 | Empty View | Input View |
 |----------------|:----------------:|
