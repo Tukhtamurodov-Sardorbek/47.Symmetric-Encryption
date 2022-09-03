@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:encryption_decryption/text_encryption/widgets/dropdown_widget.dart';
 import 'package:encryption_decryption/text_encryption/widgets/text_view_widget.dart';
-import 'package:encryption_decryption/text_encryption/text_encryption_viewModel.dart';
+import 'package:encryption_decryption/text_encryption/viewModel.dart';
 
 class TextEncryptionPage extends ConsumerWidget {
   const TextEncryptionPage({Key? key}) : super(key: key);

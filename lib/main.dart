@@ -1,6 +1,6 @@
 import 'package:encryption_decryption/scroll_config.dart';
 import 'package:flutter/material.dart';
-import 'package:encryption_decryption/text_encryption/text_encryption_view.dart';
+import 'package:encryption_decryption/text_encryption/view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
