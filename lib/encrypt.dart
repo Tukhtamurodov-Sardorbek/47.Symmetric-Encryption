@@ -76,4 +76,25 @@ class SymmetricEncryption {
     final decrypted = encrypterSalsa20.decrypt64(encrypted, iv: ivSalsa20);
     return decrypted;
   }
+
+
+
+
+
+
+
+  static final keyFile = encrypt.Key.fromUtf8('anyKeyButItMustBe32ByteCharacter');
+  static final ivFile = encrypt.IV.fromUtf8('VivekPanchal1122');
+  static final encrypterFile = encrypt.Encrypter(encrypt.AES(keyFile));
+
+  static EncryptFile(plainString) {
+    final encrypted = encrypterFile.encryptBytes(plainString, iv: ivFile);
+    return encrypted;
+  }
+
+  static DecryptFile(encryptedData) {
+    final encrypted = encrypt.Encrypted(encryptedData);
+    final decrypted = encrypterFile.decryptBytes(encrypted, iv: ivFile);
+    return decrypted;
+  }
 }

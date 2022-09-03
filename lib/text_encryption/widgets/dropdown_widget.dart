@@ -1,14 +1,14 @@
-import 'package:encryption_decryption/home_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:encryption_decryption/text_encryption/text_encryption_viewModel.dart';
 
 class DropDownMenu extends ConsumerWidget {
   const DropDownMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final watch = ref.watch(homeChangeNotifier);
-    final read = ref.read(homeChangeNotifier);
+    final watch = ref.watch(textEncryptionChangeNotifier);
+    final read = ref.read(textEncryptionChangeNotifier);
 
     return DropdownButtonFormField(
       value: watch.currentAlgorithm,

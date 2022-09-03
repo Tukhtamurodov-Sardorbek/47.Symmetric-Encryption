@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:encryption_decryption/encrypt.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final homeChangeNotifier = ChangeNotifierProvider<HomeChangeNotifier>((ref) => HomeChangeNotifier(),);
+final textEncryptionChangeNotifier = ChangeNotifierProvider<TextEncryptionChangeNotifier>((ref) => TextEncryptionChangeNotifier(),);
 
-class HomeChangeNotifier extends ChangeNotifier {
+class TextEncryptionChangeNotifier extends ChangeNotifier {
   /// fields
   TextEditingController textController = TextEditingController();
   String? _plainText;

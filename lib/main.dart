@@ -1,7 +1,7 @@
+import 'package:encryption_decryption/scroll_config.dart';
 import 'package:flutter/material.dart';
-import 'package:encryption_decryption/home_view.dart';
+import 'package:encryption_decryption/text_encryption/text_encryption_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:encryption_decryption/widgets/scroll_config.dart';
 
 void main() {
   runApp(
@@ -13,7 +13,7 @@ void main() {
             primarySwatch: Colors.amber,
             brightness: Brightness.dark,
           ),
-          home: const HomePage(),
+          home: const TextEncryptionPage(),
 
           // * To remove the glow on the whole application
           builder: (context, child) {
