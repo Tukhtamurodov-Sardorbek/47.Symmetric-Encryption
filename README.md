@@ -20,4 +20,3 @@
 | Salsa20 Encryption | Salsa20 Decryption |
 |----------------|:----------------:|
 | <img src = "assets/readme/img_6.png" width="300" height="650" /> | <img src = "assets/readme/img_7.png" width="300" height="650" /> |
-
